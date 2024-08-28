@@ -1,0 +1,30 @@
+name: Run Test Script
+
+on:
+  workflow_dispatch:  # 手動觸發工作流程
+
+jobs:
+  run-test:
+    name: Execute test.py
+    runs-on: windows-latest  # 在最新的 Windows 環境上運行
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          repository: tsauchenruei/test  # 指定要檢出的存儲庫
+          ref: main  # 指定分支
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'  # 設置 Python 版本
+          
+      - name: install
+        run: |
+          pip install requests
+          
+      - name: Run test.py
+        run: |
+          python test.py  # 執行 test.py 腳本
+          
